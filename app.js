@@ -1,3 +1,7 @@
+const tasks = require('./routes/tasks')
+
+app.use(tasks.routes(), tasks.allowedMethods())
+
 require('./store').init()
 
 const Koa = require('koa')
