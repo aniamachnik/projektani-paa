@@ -1,5 +1,9 @@
-
 const uuid = require('uuid')
+const storage = require('azure-storage')
+
+const service = storage.createTableService()
+const table = 'tasks'
+
 
 const createTask = async (title) => (
   new Promise((resolve, reject) => {
@@ -17,16 +21,6 @@ const createTask = async (title) => (
 )
 
 
-module.exports = {
-  init,
-  createTask
-}
-
-
-
-const storage = require('azure-storage')
-const service = storage.createTableService()
-const table = 'tasks'
 
 const init = async () => (
   new Promise((resolve, reject) => {
@@ -36,6 +30,12 @@ const init = async () => (
   })
 )
 
+
+
+
+
 module.exports = {
-  init
+  init,
+  createTask
 }
+
