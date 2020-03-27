@@ -1,7 +1,7 @@
 const storage = require('azure-storage')
+const uuid = require('uuid')
 const service = storage.createTableService()
 const table = 'tasks'
-const uuid = require('uuid')
 
 
 const init = async () => (
@@ -12,8 +12,11 @@ const init = async () => (
   })
 )
 
+module.exports = {
+  init,
+}
 
- 
+
 const createTask = async (title) => (
   new Promise((resolve, reject) => {
     const generator = storage.TableUtilities.entityGenerator
