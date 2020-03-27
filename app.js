@@ -1,9 +1,3 @@
-const tasks = require('./routes/tasks')
-
-app.use(tasks.routes(), tasks.allowedMethods())
-
-require('./store').init()
-
 const Koa = require('koa')
 const app = new Koa()
 const views = require('koa-views')
@@ -14,6 +8,7 @@ const logger = require('koa-logger')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
+const tasks = require('./routes/tasks')
 
 // error handler
 onerror(app)
@@ -41,6 +36,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(tasks.routes(), tasks.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
@@ -48,3 +44,4 @@ app.on('error', (err, ctx) => {
 });
 
 module.exports = app
+require('./store').init()
