@@ -1,10 +1,13 @@
- input(type="submit", value="Dodaj")
+block content
+  form(action="/tasks/add", method="post")
+    label(for="title")
+      | Tytuł
+    br
+    input(type="text" id="title" name="title")
+    br
+    input(type="submit", value="Dodaj")
   table
     tr
-      th(scope= "col") Tytuł
-    each task in tasks
-      tr
-        td= task.title
     th(scope= "col") Tytuł
     th(scope= "col") Status
     th(scope= "col") Akcje
@@ -16,3 +19,4 @@
         button(type="button" onclick=`updateTaskStatus('${task.id}', 'completed')`) ✓
 block scripts
   script(src="javascripts/index.js")
+
