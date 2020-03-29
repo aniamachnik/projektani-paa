@@ -10,4 +10,3 @@ const updateTaskStatus = (id, status) => {
     window.location = '/'
   })
 }
-

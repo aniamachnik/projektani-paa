@@ -2,7 +2,9 @@ const storage = require('azure-storage')
 const service = storage.createTableService()
 const table = 'tasks'
 const uuid = require('uuid')
+
  
+
 const init = async () => (
   new Promise((resolve, reject) => {
     service.createTableIfNotExists(table, (error, result, response) => {
@@ -10,7 +12,9 @@ const init = async () => (
     })
   })
 )
+
  
+
 module.exports = {
   init
 }
@@ -23,7 +27,9 @@ const createTask = async (title) => (
       title,
       status: 'open'
     }
+
  
+
     service.insertEntity(table, task, (error, result, response) => {
       !error ? resolve() : reject()
     })
@@ -34,7 +40,9 @@ const listTasks = async () => (
     const query = new storage.TableQuery()
       .select(['RowKey', 'title', 'status'])
       .where('PartitionKey eq ?', 'task')
+
  
+
     service.queryEntities(table, query, null, (error, result, response) => {
       !error ? resolve(result.entries.map((entry) => ({
         id: entry.RowKey._,
@@ -49,7 +57,9 @@ module.exports = {
   createTask,
   listTasks
 }
+
  
+
 const updateTaskStatus = async (id, status) => (
   new Promise((resolve, reject) => {
     const generator = storage.TableUtilities.entityGenerator
@@ -58,7 +68,9 @@ const updateTaskStatus = async (id, status) => (
       RowKey: generator.String(id),
       status
     }
+
  
+
     service.mergeEntity(table, task, (error, result, response) => {
       !error ? resolve() : reject()
     })
@@ -70,4 +82,3 @@ module.exports = {
   listTasks,
   updateTaskStatus
 }
-
